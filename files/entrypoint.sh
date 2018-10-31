@@ -87,10 +87,21 @@ if [ -f /firstrun ]; then
 
 	# Configure standard mail delivery parameters (may be overriden by backuppc user-wide config)
 	echo "account default" > /etc/msmtprc
-	echo "host ${SMTP_HOST:-mail.example.org}" >> /etc/msmtprc
-	echo "auto_from on" >> /etc/msmtprc
+	#echo "host ${SMTP_HOST:-mail.example.org}" >> /etc/msmtprc
+	#echo "auto_from on" >> /etc/msmtprc
 	if [ "${SMTP_MAIL_DOMAIN:-}" != "" ]; then
-		echo "maildomain ${SMTP_MAIL_DOMAIN}" >> /etc/msmtprc
+		#echo "maildomain ${SMTP_MAIL_DOMAIN}" >> /etc/msmtprc
+		echo "host ${SMTP_MAIL_DOMAIN}" >> /etc/msmtprc
+		echo "port ${SMTP_PORT}" >> /etc/msmtprc
+		echo "from ${MAIL_FROM}" >> /etc/msmtprc
+		echo "keepbcc on" >> /etc/msmtprc
+		echo "auth on" >>  /etc/msmtprc
+		echo "user ${MAIL_AUTH_USER}" >>  /etc/msmtprc
+		echo "password ${MAIL_PASSWORD}" >>  /etc/msmtprc
+		echo "tls ${TLS_MODE}" >> /etc/msmtprc
+		echo "tls_starttls ${STARTTLS_MODE}" >> /etc/msmtprc
+		echo "tls_certcheck ${TLS_CERTCHECK}" >> /etc/msmtprc
+
 	fi
 
 	# Clean
